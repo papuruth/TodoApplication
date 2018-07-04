@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+        body {
+            background-color: lightblue;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- Include _menu.html -->
+<th:block th:include="dashboard/_menu"></th:block>
+<div>
+    <span style="color: green">Todo List</span>
+</div>
+<table th:if="${#lists.size(todoList)>0}" th:object="${todoList}" id="todoList" border="1">
+    <tr>
+        <th>Task</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th colspan="2">Action</th>
+    </tr>
+    <tr th:each="todo : ${todoList}">
+        <td th:text="${todo.task}"></td>
+        <td th:text="${todo.description}"></td>
+        <td th:text="${todo.todoStatus}"></td>
+        <td th:if="${todo.todoStatus.name()!='COMPLETED'}">
+            <form th:action="@{/todo/update}" method="GET">
+                <input type="hidden" value="COMPLETED" name="status">
+                <input type="hidden" th:value="${todo.id}" name="id">
+                <input type="submit" value="update">
+            </form>
+        </td>
+        <td th:else>
+            <form th:action="@{/todo/delete}" method="GET">
+                <input type="hidden" th:value="${todo.id}" name="id">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+
+    </tr>
+</table>
+<div th:if="${#lists.isEmpty(todoList)}">
+    <span>No Todo Found.</span>
+</div>
+</body>
+</html>

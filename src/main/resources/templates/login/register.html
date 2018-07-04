@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="Register"></title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+        .success {
+            color: green;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Include _menu.html -->
+<th:block th:include="login/_menu"></th:block>
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+<div th:if="${successMessage != null}"
+     th:utext="${successMessage}" class="success">...</div>
+<form th:action="@{/user/save}" th:object="${userCo}" method="POST">
+    <table>
+        <tr>
+            <td>Username <span style="color: red">*</span> </td>
+            <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+            <td>Password <span style="color: red">*</span></td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input type="text" name="address"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Save">
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

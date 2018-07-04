@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="Register"></title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+        .success {
+            color: green;
+            font-style: italic;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Include _menu.html -->
+<th:block th:include="dashboard/_menu"></th:block>
+<div>
+    <span style="color: green">Create Todo</span>
+</div>
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...
+</div>
+<div th:if="${successMessage != null}"
+     th:utext="${successMessage}" class="success">...
+</div>
+<form th:action="@{/todo/addList}" th:object="${todoCo}" method="POST">
+    <table>
+        <tr>
+            <td>Task <span style="color: red">*</span></td>
+            <td><input type="text" name="task"></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input type="text" name="description"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Save">
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

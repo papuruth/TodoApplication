@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+        .success {
+            color: green;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<!-- Include _menu.html -->
+<th:block th:include="login/_menu"></th:block>
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+<div th:if="${successMessage != null}"
+     th:utext="${successMessage}" class="success">...</div>
+<form th:action="@{/user/authentication}" th:object="${userCo}" method="POST">
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="SingIn">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
